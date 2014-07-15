@@ -1,0 +1,46 @@
+<legend>Reference {{ reference.reference_name }}</legend>
+
+<p>{{ reference.description }}</p>
+
+<div>
+	<p>
+		<span class="label label-primary">GET</span>
+	</p>
+	<ul>
+	    <li>
+	    	/{{reference.reference_name}}
+	    </li>
+	</ul>
+	<p>
+		<span class="label label-success">POST</span>
+	</p>
+	<ul>
+	    <li>
+			/{{reference.reference_name}}
+	    </li>
+	</ul>
+	<p>
+		<span class="label label-info">GET BY X</span>
+	</p>
+	<ul>
+	    <li ng-repeat="(key,val) in schema">
+			/{{reference.reference_name}}/by/{{key}}/for/:value
+	    </li>
+	</ul>
+	<p>
+		<span class="label label-warning">PUT</span>
+	</p>
+	<ul>
+	    <li>
+	    	/{{reference.reference_name}}/:id
+	    </li>
+	</ul>
+	<p>
+		<span class="label label-danger">DELETE</span>
+	</p>
+	<ul>
+	    <li>
+			/{{reference.reference_name}}/:id
+	    </li>
+	</ul>
+</div>
