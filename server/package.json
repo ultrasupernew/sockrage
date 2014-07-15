@@ -1,0 +1,20 @@
+{
+  "name": "usn-firebase",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "~4.5.0",
+    "body-parser": "^1.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "root@alexandrenguyen.fr:/opt/git/usn-firebase.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

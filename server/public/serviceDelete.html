@@ -1,0 +1,10 @@
+<div>
+
+	<legend>Delete a reference {{ reference.reference_name }}</legend>
+
+	<label>Super Admin Password</label>
+	<input type="password" ng-model="configuration.super_admin_password">
+
+	<button ng-click="deleteReference(reference, configuration)">Delete reference</button>
+
+</div>

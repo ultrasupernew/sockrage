@@ -1,0 +1,47 @@
+<h1 class="page-header">Projects</h1>
+
+<ul>
+	<li><a href="#newProject">New project</a></li>
+</ul>
+
+<div>
+	<table class="table table-striped">
+
+		<thead>
+			<tr>
+				<td>Project name</td>
+				<td>Description</td>
+				<td>Created at</td>
+				<td>Is active</td>
+				<td>Actions</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng:repeat="project in projects"> 
+				<td>{{ project.project_name }}</td>
+				<td>{{ project.project_description }}</td>
+				<td>{{ project.created_at }}</td>
+				<td>{{ project.is_active }}</td>
+				<td>
+					<a href="/#/project/{{ project._id }}">
+						View <i class="fa fa-eye"></i>
+					</a>
+					<br>
+					<a href="/#/project/edit/{{ project._id }}">
+						Edit <i class="fa fa-edit"></i>
+					</a>
+					<br>
+					<a href="/#/project/references/{{ project._id }}">
+						References <i class="fa fa-globe"></i>
+					</a>
+					<br>
+					<a href="/#/project/delete/{{ project._id }}">
+						Delete <i class="fa fa-trash-o"></i>
+					</a>
+				</td>
+			</tr> 
+		</tbody>
+
+	</table>
+</div>
