@@ -51,7 +51,7 @@ function SockRage(_uri, _reference) {
 		this.update = function(_id, data) {
 
 			var dataEntity = {
-				_id : _id,
+			_id : _id,
 			operation : "update",
 			reference : this.reference,
 			datas : data
