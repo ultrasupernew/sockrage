@@ -156,7 +156,7 @@ io.on('connection', function (socket) {
         if (data._id) { data._id = objectId(data._id);}
         db.collection(data.reference).save(data.datas, {safe:true}, function(err, docs) {
 
-            console.log("generated ID = " + docs._id);
+            //console.log("generated ID = " + docs._id);
             socket.emit(data.reference, { operation : data.operation, objects : docs });
             socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
 
@@ -166,7 +166,7 @@ io.on('connection', function (socket) {
 
         db.collection(data.reference).find().sort({_id : 0}, function(err, docs) {
 
-            console.log("getting all = " + docs.length);
+            //console.log("getting all = " + docs.length);
             socket.emit(data.reference, { operation : data.operation, objects : docs });
             socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
 
@@ -175,7 +175,7 @@ io.on('connection', function (socket) {
     else if (data.operation == "getById") {
         db.collection(data.reference).findOne({_id:objectId(data._id)}, function(err, doc) {
 
-            console.log("getting by ID = " + data._id);
+            //console.log("getting by ID = " + data._id);
             socket.emit(data.reference, { operation : data.operation, objects : doc });
             socket.broadcast.emit(data.reference, { operation : data.operation, objects : doc });
 
@@ -185,7 +185,7 @@ io.on('connection', function (socket) {
 
         db.collection(data.reference).update({_id:objectId(data._id)}, data.datas, {multi:false}, function(err, doc) {
 
-            console.log("updating by ID = " + data._id);
+            //console.log("updating by ID = " + data._id);
             socket.emit(data.reference, { operation : data.operation, objects : doc });
             socket.broadcast.emit(data.reference, { operation : data.operation, objects : doc });
 
