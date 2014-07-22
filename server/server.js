@@ -157,6 +157,9 @@ io.on('connection', function (socket) {
         db.collection(data.reference).save(data.datas, {safe:true}, function(err, docs) {
 
             //console.log("generated ID = " + docs._id);
+
+            if (docs == null) {docs = {}};
+
             socket.emit(data.reference, { operation : data.operation, objects : docs });
             socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
 
@@ -167,37 +170,49 @@ io.on('connection', function (socket) {
         db.collection(data.reference).find().sort({_id : 0}, function(err, docs) {
 
             //console.log("getting all = " + docs.length);
+
+            if (docs == null) {docs = {}};
+
             socket.emit(data.reference, { operation : data.operation, objects : docs });
             socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
 
         });
     }
     else if (data.operation == "getById") {
-        db.collection(data.reference).findOne({_id:objectId(data._id)}, function(err, doc) {
+        db.collection(data.reference).findOne({_id:objectId(data._id)}, function(err, docs) {
 
             //console.log("getting by ID = " + data._id);
-            socket.emit(data.reference, { operation : data.operation, objects : doc });
-            socket.broadcast.emit(data.reference, { operation : data.operation, objects : doc });
+
+            if (docs == null) {docs = {}};
+
+            socket.emit(data.reference, { operation : data.operation, objects : docs });
+            socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
 
         });
     }
     else if (data.operation == "update") {
 
-        db.collection(data.reference).update({_id:objectId(data._id)}, data.datas, {multi:false}, function(err, doc) {
+        db.collection(data.reference).update({_id:objectId(data._id)}, data.datas, {multi:false}, function(err, docs) {
 
             //console.log("updating by ID = " + data._id);
-            socket.emit(data.reference, { operation : data.operation, objects : doc });
-            socket.broadcast.emit(data.reference, { operation : data.operation, objects : doc });
+
+            if (docs == null) {docs = {}};
+
+            socket.emit(data.reference, { operation : data.operation, objects : docs });
+            socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
 
         });
 
     }
     else if (data.operation == "delete") {
 
-        db.collection(data.reference).remove({_id:objectId(data._id)}, {safe:true}, function(err, doc) {
+        db.collection(data.reference).remove({_id:objectId(data._id)}, {safe:true}, function(err, docs) {
 
-            console.log("deleting by ID = " + data._id);
-            socket.emit(data.reference, { operation : data.operation, objects : doc });
+            //console.log("deleting by ID = " + data._id);
+
+            if (docs == null) {docs = {}};
+
+            socket.emit(data.reference, { operation : data.operation, objects : docs });
             socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
 
         });
