@@ -158,10 +158,14 @@ io.on('connection', function (socket) {
 
             //console.log("generated ID = " + docs._id);
 
-            if (docs == null) {docs = {}};
+            if (!err) {
 
-            socket.emit(data.reference, { operation : data.operation, objects : docs });
-            socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+                if (docs == null) {docs = {}};
+
+                socket.emit(data.reference, { operation : data.operation, objects : docs });
+                socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+
+            }
 
         });
     }
@@ -171,10 +175,13 @@ io.on('connection', function (socket) {
 
             //console.log("getting all = " + docs.length);
 
-            if (docs == null) {docs = {}};
+            if (!err) {
 
-            socket.emit(data.reference, { operation : data.operation, objects : docs });
-            socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+                if (docs == null) {docs = {}};
+
+                socket.emit(data.reference, { operation : data.operation, objects : docs });
+                socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+            }
 
         });
     }
@@ -183,10 +190,14 @@ io.on('connection', function (socket) {
 
             //console.log("getting by ID = " + data._id);
 
-            if (docs == null) {docs = {}};
+            if (!err) {
 
-            socket.emit(data.reference, { operation : data.operation, objects : docs });
-            socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+                if (docs == null) {docs = {}};
+
+                socket.emit(data.reference, { operation : data.operation, objects : docs });
+                socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+
+            }
 
         });
     }
@@ -196,10 +207,14 @@ io.on('connection', function (socket) {
 
             //console.log("updating by ID = " + data._id);
 
-            if (docs == null) {docs = {}};
+            if (!err) {
 
-            socket.emit(data.reference, { operation : data.operation, objects : docs });
-            socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+                if (docs == null) {docs = {}};
+
+                socket.emit(data.reference, { operation : data.operation, objects : docs });
+                socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+
+            }
 
         });
 
@@ -210,10 +225,14 @@ io.on('connection', function (socket) {
 
             //console.log("deleting by ID = " + data._id);
 
-            if (docs == null) {docs = {}};
+            if (!err) {
 
-            socket.emit(data.reference, { operation : data.operation, objects : docs });
-            socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+                if (docs == null) {docs = {}};
+
+                socket.emit(data.reference, { operation : data.operation, objects : docs });
+                socket.broadcast.emit(data.reference, { operation : data.operation, objects : docs });
+
+            }
 
         });
 
