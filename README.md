@@ -13,7 +13,7 @@ Sockrage provides real-time CRUD web services accessible from the Sockrage Javas
 - Open your web browser and go on http://"your server address":"your choosen port"
 - Create a project and assign references to this project. 
 
-#####A reference is like a table in the database where you can push and retreive data. After your created this reference, you'll have to assign it to the SockRage javascript object (see below)
+#####A reference is like a table in the database where you can push and retreive data. After your created this reference, you'll have to assign it to the SockRage javascript object on the client side (see below)
 
 ##Client side
 
