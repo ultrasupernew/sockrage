@@ -61,7 +61,7 @@ function SockRage(_uri, _reference) {
 		}
 
 		this.on = function(callback) {
-	  this.socket.on(this.reference, callback);
+	  		this.socket.on(this.reference, callback);
 		}
 
 }
