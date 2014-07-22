@@ -171,9 +171,11 @@ io.on('connection', function (socket) {
     }
     else if (data.operation == "getAll") {
 
-        db.collection(data.reference).find().sort({_id : 0}, function(err, docs) {
+        db.collection(data.reference).find().sort({}, function(err, docs) {
 
             //console.log("getting all = " + docs.length);
+
+            docs.reverse();
 
             if (!err) {
 
