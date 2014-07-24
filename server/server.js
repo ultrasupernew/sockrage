@@ -8,7 +8,7 @@ var config = require('./config');
 var io = require('socket.io')(server);
 var db = require('mongojs').connect('sockrage');
 
-app.use(bodyParser.json());       // to support JSON-encoded bodies
+app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.set('view engine', 'html');
 app.use(express.static(__dirname + '/public'));
 
@@ -53,9 +53,6 @@ var referencesSchema = new mongoose.Schema({
 var referencesModel = mongoose.model('references', referencesSchema);
 
 
-
-
-
 /*
   HEADER MIDDLEWARE
 */
@@ -69,22 +66,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-
-
-
-/* Building all schemas of references */
-
-//getting all references and loop them to create schemas and getting models, and routes
-
-var query = referencesModel.find(null);
-
-query.exec(function (err, references) {
-  if (err) { throw err; }
-
-  console.log("getting all references");
-
-});
 
 
 //Function callback
@@ -156,8 +137,6 @@ io.on('connection', function (socket) {
         if (data._id) { data._id = objectId(data._id);}
         db.collection(data.reference).save(data.datas, {safe:true}, function(err, docs) {
 
-            //console.log("generated ID = " + docs._id);
-
             if (!err) {
 
                 if (docs == null) {docs = {}};
@@ -172,8 +151,6 @@ io.on('connection', function (socket) {
     else if (data.operation == "getAll") {
 
         db.collection(data.reference).find().sort({}, function(err, docs) {
-
-            //console.log("getting all = " + docs.length);
 
             docs.reverse();
 
@@ -190,8 +167,6 @@ io.on('connection', function (socket) {
     else if (data.operation == "getById") {
         db.collection(data.reference).findOne({_id:objectId(data._id)}, function(err, docs) {
 
-            //console.log("getting by ID = " + data._id);
-
             if (!err) {
 
                 if (docs == null) {docs = {}};
@@ -206,8 +181,6 @@ io.on('connection', function (socket) {
     else if (data.operation == "update") {
 
         db.collection(data.reference).update({_id:objectId(data._id)}, data.datas, {multi:false}, function(err, docs) {
-
-            //console.log("updating by ID = " + data._id);
 
             if (!err) {
 
@@ -225,8 +198,6 @@ io.on('connection', function (socket) {
 
         db.collection(data.reference).remove({_id:objectId(data._id)}, {safe:true}, function(err, docs) {
 
-            //console.log("deleting by ID = " + data._id);
-
             if (!err) {
 
                 if (docs == null) {docs = {}};
@@ -243,7 +214,6 @@ io.on('connection', function (socket) {
   });
 
 });
-
 
 
 //Adding a project
@@ -351,7 +321,6 @@ app.route('/internal/api/projects/:project_id').put(function(req, res, next) {
 
     }
 });
-
 
 
 //Adding a reference
