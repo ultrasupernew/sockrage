@@ -43,7 +43,7 @@ You can now use this instance to push / retreive data.
 ```
 - Getting data
 ```javascript
-	sockRage.get(<reference>);
+	sockRage.get(<_id>);
 ```
 - List all data
 ```javascript
@@ -51,11 +51,11 @@ You can now use this instance to push / retreive data.
 ```
 - Update data
 ```javascript
-	sockRage.update(<reference>, {hello : "bye"});
+	sockRage.update(<_id>, {hello : "bye"});
 ```
 - Delete data
 ```javascript
-	sockRage.delete(<reference>);
+	sockRage.delete(<_id>);
 ```
 
 
