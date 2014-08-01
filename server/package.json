@@ -1,6 +1,6 @@
 {
-  "name": "usn-firebase",
-  "version": "0.0.0",
+  "name": "sockrage",
+  "version": "0.0.1",
   "description": "sockrage ========",
   "main": "index.js",
   "dependencies": {
