@@ -75,7 +75,7 @@ Just create an AngularSockr synchronized array, and use our functions to add, up
 
 Assign your array to the Angular $scope object to inject it to the DOM.
 
-#### Include theses libraries into your HTML page.
+#### Include theses libraries into your HTML page below AngularJS include.
 
 	<script type="text/javascript" src="/js/socket.io.js"></script>
 	<script type="text/javascript" src="/js/sockrage.js"></script>
