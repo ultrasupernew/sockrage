@@ -1,78 +1,169 @@
 var sockRage = angular.module('sockRage', [
-  'ngRoute',
-  'sockRageControllers',
-  'sockRageServices',
-  'sockRageFilters'
+    'ngRoute',
+    'sockRageControllers',
+    'sockRageServices',
+    'sockRageFilters'
 ]);
 
 sockRage.run(function($rootScope, $location) {
     $rootScope.location = $location;
 });
 
+sockRage.factory("authService", function($window){
+    return {
+        isAuthenticated: function(){
+
+            if($window.sessionStorage["is_connected"] == "false") {
+                $window.location.href= "#/login";
+            }
+
+        }
+    };
+});
+
 sockRage.config(['$routeProvider',
-  function($routeProvider) {
-    $routeProvider.
-      when('/', {
-        templateUrl: 'projects.html',
-        controller: 'projectsController'
-      }).
-      when('/about', {
-        templateUrl: 'about.html',
-        controller: 'aboutController'
-      }).
-      when('/newReference/:project_id', {
-        templateUrl: 'newReference.html',
-        controller: 'newReferenceController'
-      }).
-      when('/statistics', {
-        templateUrl: 'statistics.html',
-        controller: 'statisticsController'
-      }).
-      when('/references', {
-        templateUrl: 'references.html',
-        controller: 'referencesController'
-      }).
-      when('/logout', {
-        templateUrl: 'logout.html',
-        controller: 'logoutController'
-      }).
-      when('/projects', {
-        templateUrl: 'projects.html',
-        controller: 'projectsController'
-      }).
-      when('/newProject', {
-        templateUrl: 'newProject.html',
-        controller: 'newProjectController'
-      }).
-      when('/project/:project_id', {
-        templateUrl: 'project.html',
-        controller: 'projectController'
-      }).
-      when('/project/edit/:project_id', {
-        templateUrl: 'projectEdit.html',
-        controller: 'projectEditController'
-      }).
-      when('/project/delete/:project_id', {
-        templateUrl: 'projectDelete.html',
-        controller: 'projectDeleteController'
-      }).
-      when('/project/references/:project_id', {
-        templateUrl: 'projectReferences.html',
-        controller: 'projectReferencesController'
-      }).
-      when('/reference/:reference_id', {
-        templateUrl: 'reference.html',
-        controller: 'referenceController'
-      }).
-      when('/reference/edit/:reference_id', {
-        templateUrl: 'referenceEdit.html',
-        controller: 'referenceEditController'
-      }).
-      when('/reference/delete/:reference_id', {
-        templateUrl: 'referenceDelete.html',
-        controller: 'referenceDeleteController'
-      }).
-      otherwise({
-        redirectTo: '/'
-      });
-  }]);
+    function($routeProvider) {
+        $routeProvider.
+            when('/', {
+                templateUrl: 'projects.html',
+                controller: 'projectsController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/projects', {
+                templateUrl: 'projects.html',
+                controller: 'projectsController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/login', {
+                templateUrl: 'login.html',
+                controller: 'loginController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/newReference/:project_id', {
+                templateUrl: 'newReference.html',
+                controller: 'newReferenceController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/statistics', {
+                templateUrl: 'statistics.html',
+                controller: 'statisticsController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/references', {
+                templateUrl: 'references.html',
+                controller: 'referencesController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/logout', {
+                templateUrl: 'logout.html',
+                controller: 'logoutController'
+            }).
+            when('/projects', {
+                templateUrl: 'projects.html',
+                controller: 'projectsController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/newProject', {
+                templateUrl: 'newProject.html',
+                controller: 'newProjectController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/project/:project_id', {
+                templateUrl: 'project.html',
+                controller: 'projectController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/project/edit/:project_id', {
+                templateUrl: 'projectEdit.html',
+                controller: 'projectEditController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/project/delete/:project_id', {
+                templateUrl: 'projectDelete.html',
+                controller: 'projectDeleteController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/project/references/:project_id', {
+                templateUrl: 'projectReferences.html',
+                controller: 'projectReferencesController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/reference/:reference_id', {
+                templateUrl: 'reference.html',
+                controller: 'referenceController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/reference/edit/:reference_id', {
+                templateUrl: 'referenceEdit.html',
+                controller: 'referenceEditController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            when('/reference/delete/:reference_id', {
+                templateUrl: 'referenceDelete.html',
+                controller: 'referenceDeleteController',
+                resolve: {
+                    auth: function(authService){
+                        return authService.isAuthenticated();
+                    }
+                }
+            }).
+            otherwise({
+                redirectTo: '/'
+            });
+    }]);

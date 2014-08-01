@@ -34,8 +34,7 @@ var objectId = function (_id) {
 var projectsSchema = new mongoose.Schema({
     project_name : String,
     project_description : String,
-    created_at : String,
-    is_active : Boolean
+    created_at : String
 });
 
 var projectsModel = mongoose.model('projects', projectsSchema);
@@ -45,7 +44,6 @@ var referencesSchema = new mongoose.Schema({
     reference_name : { type: String, index: { unique: true }},
     reference_description : String,
     created_at : String,
-    is_active : Boolean,
     project_id : String,
     project_identifier : String
 });
@@ -223,8 +221,7 @@ app.route('/internal/api/projects').post(function(req, res, next) {
     var project = new projectsModel({
         project_name : req.body.project_name,
         project_description : req.body.project_description,
-        created_at : new Date(),
-        is_active : req.body.is_active
+        created_at : new Date()
     });
 
     if (!/^[a-zA-Z-]+$/.test(project.project_name) || project.project_name == null || project.project_name.length == 0) {
@@ -312,7 +309,6 @@ app.route('/internal/api/projects/:project_id').put(function(req, res, next) {
 
             model.project_name = req.body.project_name;
             model.project_description = req.body.project_description;
-            model.is_active = req.body.is_active;
 
             model.save();
 
@@ -333,7 +329,6 @@ app.route('/internal/api/references').post(function(req, res, next) {
         reference_name : req.body.reference_name,
         reference_description : req.body.reference_description,
         created_at : new Date(),
-        is_active : req.body.is_active,
         project_id : req.body.project_id,
         project_identifier : req.body.project_identifier
     });
@@ -450,7 +445,6 @@ app.route('/internal/api/references/:reference_id').put(function(req, res, next)
 
             model.reference_name = req.body.reference_name;
             model.reference_description = req.body.reference_description;
-            model.is_active = req.body.is_active;
 
             model.save();
 
