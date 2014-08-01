@@ -59,7 +59,7 @@ For example with "getAll" operation :
 
 	//... ...
 
-	sockRage.list();
+	sockRage.getAll();
 ```
 
 You can use sockRage instance to push / getting data.
