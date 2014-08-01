@@ -62,7 +62,7 @@ For example with "getAll" operation :
 	sockRage.list();
 ```
 
-You can use sockRage instance to push / getting data.
+You can use sockRage instance to push / get data.
 
 - Push data :
 ```javascript
