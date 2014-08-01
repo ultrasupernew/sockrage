@@ -70,7 +70,7 @@ You can now use this instance to push / getting data.
 
 ### AngularJS Library
 
-AngularSockr is a library especially for AngularJS. It provide a synchronized array with your data on the server.
+AngularSockr is a library especially for AngularJS. It provides a synchronized array with your data on the server.
 Just create an AngularSockr synchronized array, and use our functions to add, update, create or delete data on your array.
 
 Assign your array to the Angular $scope object to inject it to the DOM.
@@ -82,7 +82,7 @@ Assign your array to the Angular $scope object to inject it to the DOM.
 	<script type="text/javascript" src="/js/angularsockr.js"></script>
 
 
-#### Register your module into your controllers or anywhere else. This example is for controllers :
+#### Register your module into your controller module or anywhere else. This example is for some standard controller module :
 
 ```javascript
 
@@ -92,7 +92,7 @@ Assign your array to the Angular $scope object to inject it to the DOM.
         function ($scope, $http, $AngularSockr) {
 
             var ref = new SockRage("http://localhost:3000", "comments"); //Create a reference
-            
+
             var sync = $AngularSockr(ref); //create a $SockRageAngular instance
 
             $scope.messages = sync.$asArray(); //assign sync array in a scope property
