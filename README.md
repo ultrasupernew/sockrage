@@ -6,16 +6,18 @@ Sockrage provides real-time CRUD web services accessible from the Sockrage Javas
 ##Setting up server
 
 - Install NodeJS and NPM
-- Download Sockrage
+- Download / Clone Sockrage here
 - Edit config.js and set up your super admin password and running port
 - Run npm init in sudo mode
 - Run server with command "node server.js"
-- Open your web browser and go on http://"your server address":"your choosen port"
+- Open your web browser and go on http://"server address":"server port"
 - Create a project and assign references to this project. 
 
-#####A reference is like a table in the database where you can push and retreive data. After your created this reference, you'll have to assign it to the SockRage javascript object on the client side (see below)
+#####A reference is like a table in the database where you can push and get data. After your created this reference, you'll have to assign it to the SockRage javascript object on the client side (see below)
 
 ##Client side
+
+### Javascript Library
 
 Simply add socket.io library and SockRage library in your HTML :
 
@@ -24,18 +26,25 @@ Simply add socket.io library and SockRage library in your HTML :
 
 Create an instance of SockRage, and provide a reference you created in the Backend :
 ```javascript
-var sockRage = new SockRage(<your sockrage server address>, <your target reference>);
+var sockRage = new SockRage(<sockrage server address>, <your target reference>);
 ```
 
 ######Now listen for data changes :
 
-- Listen for data changes
+on(operation, callback) function permits to listen on any operation. Operation can be :
+
+- getAll
+- getById
+- delete
+- create
+- update
+
 ```javascript
-	sockRage.on(function(data) {
+	sockRage.on(operation, function(data) {
 		//use data for whatever
 	});
 ```
-You can now use this instance to push / retreive data.
+You can now use this instance to push / getting data.
 
 - Push data :
 ```javascript
@@ -43,7 +52,7 @@ You can now use this instance to push / retreive data.
 ```
 - Getting data
 ```javascript
-	sockRage.get(<_id>);
+	sockRage.get(_id);
 ```
 - List all data
 ```javascript
@@ -51,12 +60,59 @@ You can now use this instance to push / retreive data.
 ```
 - Update data
 ```javascript
-	sockRage.update(<_id>, {hello : "bye"});
+	sockRage.update(_id, {hello : "bye"});
 ```
 - Delete data
 ```javascript
-	sockRage.delete(<_id>);
+	sockRage.delete(_id);
 ```
 
 
+### AngularJS Library
+
+AngularSockr is a library especially for AngularJS. It provide a synchronized array with your data on the server.
+Just create an AngularSockr synchronized array, and use our functions to add, update, create or delete data on your array.
+
+Assign your array to the Angular $scope object to inject it to the DOM.
+
+#### Include theses libraries into your HTML page.
+
+	<script type="text/javascript" src="/js/socket.io.js"></script>
+	<script type="text/javascript" src="/js/sockrage.js"></script>
+	<script type="text/javascript" src="/js/angularsockr.js"></script>
+
+
+#### Register your module into your controllers or anywhere else. This example is for controllers :
+
+```javascript
+
+    var appControllers = angular.module('appControllers', ['sockRage']);
+
+    appControllers.controller('indexController', ['$scope', '$http', '$AngularSockr',
+        function ($scope, $http, $AngularSockr) {
+
+            var ref = new SockRage("http://localhost:3000", "comments"); //Create a reference
+            
+            var sync = $AngularSockr(ref); //create a $SockRageAngular instance
+
+            $scope.messages = sync.$asArray(); //assign sync array in a scope property
+
+            $scope.messages.$set({message : "hello world !"}); //add data to synchronized array
+            $scope.messages.$delete("someID"); //delete data to synchronized array
+            $scope.messages.$update("someID", {message : "I updated this data !"}); //delete data to synchronized array
+            $scope.messages.$get("someID"); //get special row
+            $scope.messages.$getAll(); //list ALL data
+
+        }]
+    );
+
+```
+
+#####Once you created your synchronized array just use theses method to update, create, delete data :
+
+- $set(data)
+- $delete(_id)
+- $update(_id, newData)
+- $get(_id)
+- $getAll()
 
