@@ -58,6 +58,20 @@ angular.module('sockRage').factory('$AngularSockr', ['$q',
 
                 }
 
+                else if(data.operation == "update") {
+
+                    //element updated. Re list all
+                    ref.list();
+
+                }
+
+                else if(data.operation == "delete") {
+
+                    //element updated. Re list all
+                    ref.list();
+
+                }
+
                 else if (data.operation == "getAll") {
 
                     emptyArray();
@@ -68,20 +82,6 @@ angular.module('sockRage').factory('$AngularSockr', ['$q',
                         array.push(data.objects[i]);
 
                     }
-
-                }
-
-                else if(data.operation == "update") {
-
-                    //element updated. Re list all
-                    ref.list();
-
-                }
-
-                else if(data.operation == "update") {
-
-                    //element updated. Re list all
-                    ref.list();
 
                 }
 
@@ -106,12 +106,6 @@ angular.module('sockRage').factory('$AngularSockr', ['$q',
             array.$delete = function(_id) {
 
                 ref.delete(_id);
-
-            }
-
-            array.$get = function(_id) {
-
-                ref.get(_id);
 
             }
 

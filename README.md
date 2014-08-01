@@ -118,8 +118,6 @@ Assign your array to the Angular $scope object to inject it to the DOM.
             $scope.messages.$set({message : "hello world !"}); //add data to synchronized array
             $scope.messages.$delete("someID"); //delete data to synchronized array
             $scope.messages.$update("someID", {message : "I updated this data !"}); //delete data to synchronized array
-            $scope.messages.$get("someID"); //get special row
-            $scope.messages.$getAll(); //list ALL data
 
         }]
     );
@@ -128,9 +126,17 @@ Assign your array to the Angular $scope object to inject it to the DOM.
 
 #####Once you created your synchronized array just use theses method to update, create, delete data :
 
-- $set(data)
-- $delete(_id)
-- $update(_id, newData)
-- $get(_id)
-- $getAll()
+- Add data to synchronized array
+```javascript
+	syncArray.$set(data);
+```
+- Remove data from synchronized array
+```javascript
+	syncArray.$delete(_id);
+```
+- Update data of synchronized array
+```javascript
+	syncArray.$update(_id, newData);
+```
+
 
