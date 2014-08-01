@@ -50,16 +50,27 @@ For example with "getAll" operation :
 ```javascript
 	sockRage.on("getAll", function(data) {
 
-		for(obj in data) {
-
-		    //print it on the DOM
-		}
+		console.log(data); //return an array of objects
 
 	});
 
 	//... ...
 
 	sockRage.list();
+```
+
+For example with "getById" operation :
+
+```javascript
+	sockRage.on("getById", function(data) {
+
+		console.log(data); //return a single object
+
+	});
+
+	//... ...
+
+	sockRage.get("someID");
 ```
 
 You can use sockRage instance to push / get data.

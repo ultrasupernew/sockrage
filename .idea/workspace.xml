@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3efe2383-67a2-442b-88c7-c25595c8cb13" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/angularsockr.js" afterPath="$PROJECT_DIR$/client/angularsockr.js" />
     </list>
     <ignored path="sockrage.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,7 +55,7 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="139" column="3" selection-start="3884" selection-end="3884" vertical-scroll-proportion="0.89495796" vertical-offset="1446" max-vertical-offset="2220">
+            <state line="50" column="24" selection-start="1521" selection-end="1521" vertical-scroll-proportion="0.24369748" vertical-offset="576" max-vertical-offset="2385">
               <folding />
             </state>
           </provider>
@@ -278,7 +277,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="3" selection-start="3884" selection-end="3884" vertical-scroll-proportion="0.89495796" vertical-offset="1446" max-vertical-offset="2220">
+        <state line="50" column="24" selection-start="1521" selection-end="1521" vertical-scroll-proportion="0.24369748" vertical-offset="576" max-vertical-offset="2385">
           <folding />
         </state>
       </provider>
