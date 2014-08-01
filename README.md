@@ -44,7 +44,25 @@ on(operation, callback) function permits to listen on any operation. Operation c
 		//use data for whatever
 	});
 ```
-You can now use this instance to push / getting data.
+
+For example with "getAll" operation :
+
+```javascript
+	sockRage.on("getAll", function(data) {
+
+		for(obj in data) {
+
+		    //print it on the DOM
+		}
+
+	});
+
+	//... ...
+
+	sockRage.list();
+```
+
+You can use sockRage instance to push / getting data.
 
 - Push data :
 ```javascript
