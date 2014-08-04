@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3efe2383-67a2-442b-88c7-c25595c8cb13" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/public/service.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/public/serviceDelete.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/server/public/serviceEdit.html" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/js/app.js" afterPath="$PROJECT_DIR$/server/public/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/js/controllers.js" afterPath="$PROJECT_DIR$/server/public/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/index.html" afterPath="$PROJECT_DIR$/server/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/newProject.html" afterPath="$PROJECT_DIR$/server/public/newProject.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/newReference.html" afterPath="$PROJECT_DIR$/server/public/newReference.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/newService.html" afterPath="$PROJECT_DIR$/server/public/newService.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/project.html" afterPath="$PROJECT_DIR$/server/public/project.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/projectEdit.html" afterPath="$PROJECT_DIR$/server/public/projectEdit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/projectReferences.html" afterPath="$PROJECT_DIR$/server/public/projectReferences.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/projectServices.html" afterPath="$PROJECT_DIR$/server/public/projectServices.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/projects.html" afterPath="$PROJECT_DIR$/server/public/projects.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/public/referenceEdit.html" afterPath="$PROJECT_DIR$/server/public/referenceEdit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.js" afterPath="$PROJECT_DIR$/server/server.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="3efe2383-67a2-442b-88c7-c25595c8cb13" name="Default" comment="" />
     <ignored path="sockrage.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />

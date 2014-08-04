@@ -3,7 +3,6 @@ var app = module.exports.app = express();
 var server = require('http').Server(app);
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var projects = require('./projects');
 var config = require('./config');
 var io = require('socket.io')(server);
 var db = require('mongojs').connect('sockrage');
