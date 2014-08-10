@@ -20,6 +20,7 @@
     <script src="js/filters.js"></script>
     <script src="js/directives.js"></script>
     <script src="js/services.js"></script>
+    <script src="js/highcharts.js"></script>
 
 </head>
 
@@ -44,6 +45,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li ng-class="location.path() == '/projects' || location.path() == '/' ? 'active' : ''"><a href="#projects">Projects</a></li>
+                <li ng-class="location.path() == '/references' ? 'active' : ''"><a href="#references">All references</a></li>
                 <li ng-class="location.path() == '/statistics' ? 'active' : ''"><a href="#statistics">Statistics</a></li>
                 <li ng-class="location.path() == '/logout' ? 'active' : ''"><a href="#logout">Logout</a></li>
             </ul>

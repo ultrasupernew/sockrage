@@ -1,13 +1,3 @@
-<legend>References for {{ project.project_name }}</legend>
-
-<p>
-	{{ project.project_description }}
-</p>
-
-<ul>
-	<li><a href="#newReference/{{ project._id }}">New Reference</a></li>
-</ul>
-
 <div>
 	<table class="table table-striped">
 
@@ -15,6 +5,7 @@
 			<tr>
 				<td>Reference name</td>
 				<td>Description</td>
+				<td>Project</td>
 				<td>Created at</td>
 			</tr>
 		</thead>
@@ -23,6 +14,7 @@
 			<tr ng:repeat="reference in references"> 
 				<td>{{ reference.reference_name }}</td>
 				<td>{{ reference.reference_description }}</td>
+				<td>{{ reference.project_identifier }}</td>
 				<td>{{ reference.created_at }}</td>
 				<td>
 					<a href="/#/reference/{{ reference._id }}">

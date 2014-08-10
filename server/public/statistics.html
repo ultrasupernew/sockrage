@@ -1,1 +1,350 @@
 <h1 class="page-header">Statistics</h1>
+
+<div id="selectContainer">
+	
+	<div id="yearSelectorContainer" class="form-group">
+		
+	</div>	
+	
+	<div id="monthSelectorContainer" class="form-group">
+		
+	</div>	
+
+	<div id="referenceSelectorContainer" class="form-group">
+		
+	</div>	
+
+</div>
+
+<div id="allRefMonth">
+	
+</div>
+
+<script type="text/javascript">
+	
+$(function() {
+
+	displayMonthSelectBox();
+	displayYearSelectBox();
+	displayReferencesSelector();
+    geStatsForMonth(new Date().getMonth(), new Date().getFullYear());
+
+});
+
+function geStatsForMonth(month, year, reference) {
+
+	if (reference == null) {
+
+		$.ajax({
+		  url: "/internal/api/historylogs",
+		  success: function(data) {
+
+		  	displayChart(
+		  		getReadyMonthArray(year, month, data), 
+		  		getArrayByOperationMonth(year, month, data, "getAll"),
+		  		getArrayByOperationMonth(year, month, data, "getById"),
+				getArrayByOperationMonth(year, month, data, "update"),
+				getArrayByOperationMonth(year, month, data, "update"),
+				getArrayByOperationMonth(year, month, data, "create"),
+				getTotalMonth(year, month, data),
+				month
+		  		);
+
+		  }
+	 	});
+
+	}
+	else {
+
+		$.ajax({
+		  url: "/internal/api/historylogs/byReferenceName/" + reference,
+		  success: function(data) {
+
+		  	displayChart(
+		  		getReadyMonthArray(year, month, data), 
+		  		getArrayByOperationMonth(year, month, data, "getAll"),
+		  		getArrayByOperationMonth(year, month, data, "getById"),
+				getArrayByOperationMonth(year, month, data, "update"),
+				getArrayByOperationMonth(year, month, data, "update"),
+				getArrayByOperationMonth(year, month, data, "create"),
+		  		getTotalMonth(year, month, data),
+		  		month
+		  		);
+
+		  }
+	 	});
+	}
+
+}
+
+function displayStatsForMonthAndReferenceSelector() {
+
+	var month = $("#inputSelectMonth").val();
+	var year = $("#inputSelectYear").val();
+	var reference = $("#inputSelectReference").val();
+
+	if (reference == "all.references.selected") {
+	  	
+		geStatsForMonth(month, year);
+
+	}
+	else {
+
+		geStatsForMonth(month, year, reference);
+
+	}
+
+
+}
+
+function displayReferencesSelector() {
+
+	$.ajax({
+	  url: "/internal/api/references",
+	  success: function(data) {
+
+		var html = '<select id="inputSelectReference" onchange="displayStatsForMonthAndReferenceSelector(); return false;" class="form-control">';
+
+		  	html += '<option value="all.references.selected">All references</option>';
+
+		  	for (var i = data.length - 1; i >= 0; i--) {
+
+		  		var reference = data[i];
+
+		  		html += '<option value="' + reference.reference_name + '">' + reference.reference_name + '</option>';
+
+		  	}
+
+		html += '</select>';
+
+		$("#referenceSelectorContainer").html(html);
+
+	  }
+ 	});
+
+}
+
+function displayMonthSelectBox() {
+
+	var html = '<select id="inputSelectMonth" onchange="displayStatsForMonthAndReferenceSelector(); return false;" class="form-control">';
+
+		for (var i = 0; i < 12; i++) {
+			
+			if (i == new Date().getMonth())
+				html += '<option value="' + i + '" selected>' + getMonthName(i) + '</option>';
+			else
+				html += '<option value="' + i + '">' + getMonthName(i) + '</option>';
+
+		}
+
+	html += '</select>';
+
+	$("#monthSelectorContainer").html(html);
+}
+
+function displayYearSelectBox() {
+
+	var html = '<select id="inputSelectYear" onchange="displayStatsForMonthAndReferenceSelector(); return false;" class="form-control">';
+
+		for (var i = 2014; i < 3000; i++) {
+			
+			if (i == new Date().getFullYear())
+				html += '<option value="' + i + '" selected>' + i + '</option>';
+			else
+				html += '<option value="' + i + '">' + i + '</option>';
+
+		}
+
+	html += '</select>';
+
+	$("#yearSelectorContainer").html(html);
+
+}
+
+function getMonthName(i) {
+
+	var monthNames = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+
+    return monthNames[i];
+}
+
+function displayChart(formattedArray, getAllArray, getByIdArray, updateArray, deleteArray, createArray, totalMonth, month) {
+
+	$('#allRefMonth').highcharts({
+        title: {
+            text: 'Statistics for ' + getMonthName(month)
+        },
+        subtitle: {
+            text: 'Total : ' + totalMonth + ' connections for ' + getMonthName(month)
+        },
+        xAxis: {
+            allowDecimals: false,
+            labels: {
+                formatter: function() {
+                    return "day " + this.value; // clean, unformatted number for year
+                }
+            }
+        },
+        yAxis: {
+            title: {
+                text: 'Amount of connections'
+            },
+            labels: {
+                formatter: function() {
+                    return this.value;
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '{series.name} got <b>{point.y:,.0f}</b><br/>connections on day {point.x}'
+        },
+        plotOptions: {
+            area: {
+                pointStart: 1,
+                marker: {
+                    enabled: false,
+                    symbol: 'circle',
+                    radius: 2,
+                    states: {
+                        hover: {
+                            enabled: true
+                        }
+                    }
+                }
+            }
+        },
+        series: [{
+            name: 'Total connections',
+            data: formattedArray
+        },{
+            name: 'getAll',
+            data: getAllArray
+        },{
+            name: 'getById',
+            data: getByIdArray
+        },{
+            name: 'update',
+            data: updateArray
+        },{
+            name: 'delete',
+            data: deleteArray
+        },{
+            name: 'create',
+            data: createArray
+        }]
+    });
+}
+
+function getArrayByOperationMonth(year, month, data, operation) {
+
+  	var arrayTable = getDaysArray(year, month); //just to get a list of day in an array. Ends by 30 or 31 depeinding year / month
+
+  	arrayTable.reverse();
+
+  	var arrayForStats = new Array();
+
+  	for (var i = arrayTable.length - 1; i >= 0; i--) {
+
+  		var day = arrayTable[i];
+
+  		for (var u = data.length - 1; u >= 0; u--) {
+  			
+  			var log = data[u];
+
+  			if (new Date(log.created_at).getDate() == day.day 
+  				&& new Date(log.created_at).getMonth() == month 
+  				&& new Date(log.created_at).getFullYear() == year
+  				&& log.action == operation) {
+
+  				day.count = day.count + 1;
+  			}
+  		}
+
+  		arrayForStats.push(day.count);
+
+  	}
+
+  	return arrayForStats;
+}
+
+function getTotalMonth(year, month, data) {
+
+	var total = 0;
+
+  	var arrayTable = getDaysArray(year, month);
+
+  	for (var i = arrayTable.length - 1; i >= 0; i--) {
+
+  		var day = arrayTable[i];
+
+  		for (var u = data.length - 1; u >= 0; u--) {
+  			
+  			var log = data[u];
+
+  			if (new Date(log.created_at).getDate() == day.day
+  				&& new Date(log.created_at).getMonth() == month) {
+
+  				total += 1;
+  			}
+  		}
+
+  	}
+
+  	return total;
+
+}
+
+function getReadyMonthArray(year, month, data) {
+
+  	var arrayTable = getDaysArray(year, month);
+
+  	arrayTable.reverse();
+
+  	var arrayForStats = new Array();
+
+  	for (var i = arrayTable.length - 1; i >= 0; i--) {
+
+  		var day = arrayTable[i];
+
+  		for (var u = data.length - 1; u >= 0; u--) {
+  			
+  			var log = data[u];
+
+  			if (new Date(log.created_at).getDate() == day.day
+  				&& new Date(log.created_at).getMonth() == month) {
+
+  				day.count = day.count + 1;
+  			}
+  		}
+
+  		arrayForStats.push(day.count);
+
+  	}
+
+  	return arrayForStats;
+}
+
+function getDaysArray(year, month) {
+    var numDaysInMonth, daysInWeek, daysIndex, index, i, l, daysArray;
+
+    numDaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    daysIndex = { 'Sun': 0, 'Mon': 1, 'Tue': 2, 'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6 };
+    index = daysIndex[(new Date(year, month - 1, 1)).toString().split(' ')[0]];
+    daysArray = [];
+
+    for (i = 0, l = numDaysInMonth[month - 1]; i < l; i++) {
+        //daysArray.push((i + 1) + '. ' + daysInWeek[index++]);
+        daysArray.push(
+        {
+        	day : (i + 1), 
+        	count : 0
+        });
+        if (index == 7) index = 0;
+    }
+
+    return daysArray;
+}
+
+</script>

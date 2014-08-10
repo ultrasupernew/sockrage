@@ -21,13 +21,9 @@ sockRageControllers.controller('projectEditController', ['$scope', '$http', 'Pro
 
         $scope.updateProject = function(project) {
 
-            console.log(project);
-
             if(project != null) {
 
                 Projects.update({ project_id : project._id }, project, function (res) {
-
-                    console.log(res);
 
                     if (res.message == "success") {
 
@@ -46,6 +42,14 @@ sockRageControllers.controller('projectEditController', ['$scope', '$http', 'Pro
             }
 
         };
+
+    }]
+);
+
+sockRageControllers.controller('referencesController', ['$scope', '$http', '$routeParams', '$window', 'References',
+    function ($scope, $http, $routeParams, $window, References) {
+
+        $scope.references = References.query();
 
     }]
 );
@@ -118,12 +122,6 @@ sockRageControllers.controller('newReferenceController', ['$scope', '$http', '$r
 
 sockRageControllers.controller('statisticsController', ['$scope', '$http',
     function ($scope, $http) {
-
-    }]
-);
-
-sockRageControllers.controller('referencesController', ['$scope', '$http', 'Projects',
-    function ($scope, $http, Projects) {
 
     }]
 );
@@ -375,3 +373,5 @@ sockRageControllers.controller('loginController', ['$scope', '$http', '$routePar
 
     }]
 );
+
+

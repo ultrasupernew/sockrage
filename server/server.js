@@ -50,6 +50,16 @@ var referencesSchema = new mongoose.Schema({
 var referencesModel = mongoose.model('references', referencesSchema);
 
 
+var historySchema = new mongoose.Schema({
+    reference_name : String,
+    action : String,
+    type : String,
+    created_at : String
+});
+
+var historyModel = mongoose.model('historylogs', historySchema);
+
+
 /*
   HEADER MIDDLEWARE
 */
@@ -64,12 +74,31 @@ app.use(function (req, res, next) {
 });
 
 
+var addToHistory = function(reference_name, action, type) {
+
+    var history = new historyModel({
+        reference_name : reference_name,
+        action : action,
+        type : type,
+        created_at : new Date()
+    });
+
+    //now create reference
+    history.save(function(err) {
+
+        if (err) {console.log(err)}
+
+        console.log("add to history : " + reference_name + " " + action + " " + type);
+
+    });
+
+}
+
 
 //Function callback
 var fn = function (req, res) {
     res.contentType('application/json');
     var fn = function (err, doc) { 
-    //console.log('asdasdas',req.body ,err,doc)
         if (err) { 
             if (err.message) {
                 doc = {error : err.message} 
@@ -82,6 +111,35 @@ var fn = function (req, res) {
     };
     return fn;
 };
+
+var createReferenceIfNotExists = function(ref_value) {
+
+    referencesModel.findOne({reference_name: ref_value}, function(err, reference) { 
+
+        if (err) { throw err; }
+
+        if (reference == null) {
+
+            var reference = new referencesModel({
+                reference_name : ref_value,
+                reference_description : "Reference with no project assigned.",
+                created_at : new Date(),
+                project_id : -1,
+                project_identifier : "No project"
+            });
+
+            //now create reference
+            reference.save(function(err) {
+
+                console.log("add a reference : " + ref_value);
+
+            });    
+
+        }
+        
+    });
+
+}
 
 
 /* Routes */
@@ -128,6 +186,9 @@ app.route('/:collection/:id').delete(function(req, res) {
 io.on('connection', function (socket) {
 
   socket.on('reference-listening', function (data) {
+
+    createReferenceIfNotExists(data.reference);
+    addToHistory(data.reference, data.operation, "websocket");
 
     if (data.operation == "create") {
 
@@ -460,6 +521,43 @@ app.route('/internal/api/configuration').get(function(req, res, next) {
 
     res.json(config.configObject);
 });
+
+
+//getting all history
+
+app.route('/internal/api/historylogs').get(function(req, res, next) {
+
+    var query = historyModel.find(null);
+
+    query.exec(function (err, historylogs) {
+      if (err) { throw err; }
+
+      console.log("getting all historylogs");
+
+      res.json(historylogs);
+
+    });
+
+});
+
+//getting history of a given reference
+
+app.route('/internal/api/historylogs/byReferenceName/:reference_name').get(function(req, res, next) {
+
+    var query = historyModel.find(null);
+    query.where("reference_name").equals(req.params.reference_name);
+
+    query.exec(function (err, historylogs) {
+      if (err) { throw err; }
+
+        console.log(historylogs);
+
+        res.json(historylogs);
+
+    });
+
+});
+
 
 
 server.listen(config.configObject.server_port, function() {

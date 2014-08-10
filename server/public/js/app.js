@@ -13,7 +13,7 @@ sockRage.factory("authService", function($window){
     return {
         isAuthenticated: function(){
 
-            if($window.sessionStorage["is_connected"] == "false") {
+            if($window.sessionStorage["is_connected"] == "false" || $window.sessionStorage["is_connected"] == null) {
                 $window.location.href= "#/login";
             }
 
@@ -25,13 +25,8 @@ sockRage.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: 'projects.html',
-                controller: 'projectsController',
-                resolve: {
-                    auth: function(authService){
-                        return authService.isAuthenticated();
-                    }
-                }
+                templateUrl: 'login.html',
+                controller: 'loginController'
             }).
             when('/projects', {
                 templateUrl: 'projects.html',
@@ -42,14 +37,18 @@ sockRage.config(['$routeProvider',
                     }
                 }
             }).
-            when('/login', {
-                templateUrl: 'login.html',
-                controller: 'loginController',
+            when('/references', {
+                templateUrl: 'references.html',
+                controller: 'referencesController',
                 resolve: {
                     auth: function(authService){
                         return authService.isAuthenticated();
                     }
                 }
+            }).            
+            when('/login', {
+                templateUrl: 'login.html',
+                controller: 'loginController'
             }).
             when('/newReference/:project_id', {
                 templateUrl: 'newReference.html',
@@ -164,6 +163,6 @@ sockRage.config(['$routeProvider',
                 }
             }).
             otherwise({
-                redirectTo: '/'
+                redirectTo: '/login'
             });
     }]);

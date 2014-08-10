@@ -107,3 +107,22 @@ body {
 .margin-top-1 {
   margin-top: 5px;
 }
+
+#selectContainer {
+  width: 100%;
+  margin: auto;
+}
+
+#yearSelectorContainer {
+  float: left;
+  margin-right: 10px;
+}
+
+#monthSelectorContainer {
+  float: left;
+  margin-right: 10px;
+}
+
+#referenceSelectorContainer {
+  float: left;
+}
