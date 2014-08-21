@@ -1,3 +1,8 @@
+/**
+ * BUILT WITH ANGULAR JS
+ * SOCKRAGE CLIENT
+ */
+
 var sockRage = angular.module('sockRage', [
     'ngRoute',
     'sockRageControllers',
