@@ -548,6 +548,7 @@ app.route('/internal/api/references').get(function(req, res, next) {
     var query = referencesModel.find(null);
 
     query.exec(function (err, references) {
+        
         if (err) { throw err; }
 
         console.log("getting all references");
