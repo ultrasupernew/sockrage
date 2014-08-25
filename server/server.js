@@ -152,7 +152,7 @@ var callbackOnCRUDOp = function (req, res) {
 
 
 /**
- * Generate a random uniq ID
+ * Return the object MONGODB ID
  * @param _id
  * @returns {*}
  */
@@ -259,7 +259,6 @@ io.on('connection', function (socket) {
          */
         if (data.operation == "create") {
 
-            if (data._id) { data._id = objectId(data._id);}
             db.collection(data.reference).save(data.datas, {safe:true}, function(err, docs) {
 
                 if (!err) {
@@ -298,6 +297,7 @@ io.on('connection', function (socket) {
          * GET BY ID
          */
         else if (data.operation == "getById") {
+            
             db.collection(data.reference).findOne({_id:objectId(data._id)}, function(err, docs) {
 
                 if (!err) {
@@ -548,7 +548,7 @@ app.route('/internal/api/references').get(function(req, res, next) {
     var query = referencesModel.find(null);
 
     query.exec(function (err, references) {
-        
+
         if (err) { throw err; }
 
         console.log("getting all references");
