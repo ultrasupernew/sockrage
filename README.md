@@ -96,6 +96,7 @@ You can use sockRage instance to push / get data.
 	sockRage.delete(_id);
 ```
 
+
 ###### Using SockRage as a simple packet emitter :
 
 SockRage can act as a simple packet emitter. You can broadcast objects to reference you want. Here are methods you can use to send objects over websockets :
