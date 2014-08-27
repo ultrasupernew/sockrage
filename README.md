@@ -1,6 +1,6 @@
 ##What is SockRage ?
 
-SockRage is a real-time websocket server written in Javascript using NodeJS.
+SockRage is a real-time websocket server written in Javascript using NodeJS, based on socket.io.
 Sockrage provides real-time CRUD web services accessible from the Sockrage Javascript client library.
 
 ##Setting up server
@@ -96,6 +96,31 @@ You can use sockRage instance to push / get data.
 	sockRage.delete(_id);
 ```
 
+###### Using SockRage as a simple packet emitter :
+
+SockRage can act as a simple packet emitter. You can broadcast objects to reference you want. Here are methods you can use to send objects over websockets :
+
+- Emit
+```javascript
+	sockRage.emit('your-action-slug', {hello : "bye"});
+```
+
+- Broadcast
+```javascript
+	sockRage.broadcast('your-action-slug', {hello : "bye"});
+```
+
+- Emit and Broadcast
+```javascript
+	sockRage.broadcastAndEmit('your-action-slug', {hello : "bye"});
+```
+
+-> To listen, simply use on() function.
+```javascript
+    sockRage.on('your-action-slug', function() {
+        //do something
+    });
+```
 
 ### AngularJS Library
 
