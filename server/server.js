@@ -157,10 +157,19 @@ var callbackOnCRUDOp = function (req, res) {
  * @returns {*}
  */
 var objectId = function (_id) {
-    if (_id.length === 24 && parseInt(db.ObjectId(_id).getTimestamp().toISOString().slice(0,4), 10) >= 2010) {
-        return db.ObjectId(_id);
+
+    if(_id) {
+
+        if (_id.length === 24 && parseInt(db.ObjectId(_id).getTimestamp().toISOString().slice(0,4), 10) >= 2010) {
+            return db.ObjectId(_id);
+        }
+
+        return _id;
     }
-    return _id;
+    else {
+        return false;
+    }
+
 }
 
 
@@ -255,11 +264,39 @@ io.on('connection', function (socket) {
         addToHistory(data.reference, data.operation, "websocket");
 
         /**
+         * EMIT
+         */
+        if(data.operation == "emit") {
+
+            socket.emit(data.reference, data);
+
+        }
+
+        /**
+         * BROADCAST
+         */
+        if(data.operation == "broadcast.emit") {
+
+            socket.broadcast.emit(data.reference, data);
+
+        }
+
+        /**
+         * BROADCAST AND EMIT
+         */
+        if(data.operation == "broadcast.and.emit") {
+
+            socket.emit(data.reference, data);
+            socket.broadcast.emit(data.reference, data);
+
+        }
+
+        /**
          * CREATE
          */
         if (data.operation == "create") {
 
-            db.collection(data.reference).save(data.datas, {safe:true}, function(err, docs) {
+            db.collection(data.reference).save(data.objects, {safe:true}, function(err, docs) {
 
                 if (!err) {
 
@@ -297,7 +334,7 @@ io.on('connection', function (socket) {
          * GET BY ID
          */
         else if (data.operation == "getById") {
-            
+
             db.collection(data.reference).findOne({_id:objectId(data._id)}, function(err, docs) {
 
                 if (!err) {
@@ -317,7 +354,7 @@ io.on('connection', function (socket) {
          */
         else if (data.operation == "update") {
 
-            db.collection(data.reference).update({_id:objectId(data._id)}, data.datas, {multi:false}, function(err, docs) {
+            db.collection(data.reference).update({_id:objectId(data._id)}, data.objects, {multi:false}, function(err, docs) {
 
                 if (!err) {
 

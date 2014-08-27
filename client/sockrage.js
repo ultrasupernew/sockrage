@@ -19,7 +19,7 @@ function SockRage(_uri, _reference) {
         var dataEntity = {
             operation : "create",
             reference : this.reference,
-            datas : data
+            objects : data
         };
 
         this.socket.emit('reference-listening', dataEntity);
@@ -80,10 +80,61 @@ function SockRage(_uri, _reference) {
             _id : _id,
             operation : "update",
             reference : this.reference,
-            datas : data
+            objects : data
         };
 
         this.socket.emit('reference-listening', dataEntity);
+    }
+
+    /**
+     * EMIT OBJECT
+     * @param dataEntity
+     */
+    this.emit = function(emit_id, data) {
+
+        var dataEntity = {
+            operation : "emit",
+            emit_id : emit_id,
+            reference : this.reference,
+            objects : data
+        };
+
+        this.socket.emit('reference-listening', dataEntity);
+
+    }
+
+    /**
+     * BROADCAST OBJECT
+     * @param dataEntity
+     */
+    this.broadcast = function(emit_id, data) {
+
+        var dataEntity = {
+            operation : "broadcast.emit",
+            emit_id : emit_id,
+            reference : this.reference,
+            objects : data
+        };
+
+        this.socket.emit('reference-listening', dataEntity);
+
+    }
+
+    /**
+     * BROADCAST AND EMIT
+     * @param data
+     */
+    this.broadcastAndEmit = function(emit_id, data) {
+
+        var dataEntity = {
+            operation : "broadcast.and.emit",
+            emit_id : emit_id,
+            reference : this.reference,
+            objects : data
+        };
+
+        this.socket.emit('reference-listening', dataEntity);
+
     }
 
     /**
@@ -95,7 +146,12 @@ function SockRage(_uri, _reference) {
 
         this.socket.on(this.reference, function(data) {
 
-            if (listenFor == data.operation) {
+            if (data.emit_id == null && listenFor == data.operation) {
+
+                callback(data.objects);
+
+            }
+            else if(listenFor == data.emit_id) {
 
                 callback(data.objects);
 
