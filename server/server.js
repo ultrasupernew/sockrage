@@ -110,20 +110,24 @@ app.use(function (req, res, next) {
  */
 var addToHistory = function(reference_name, action, type) {
 
-    var history = new historyModel({
-        reference_name : reference_name,
-        action : action,
-        type : type,
-        created_at : new Date()
-    });
+    if(config.configObject.enable_logging) {
 
-    history.save(function(err) {
+        var history = new historyModel({
+            reference_name : reference_name,
+            action : action,
+            type : type,
+            created_at : new Date()
+        });
 
-        if (err) {console.log(err)}
+        history.save(function(err) {
 
-        console.log("add to history : " + reference_name + " " + action + " " + type);
+            if (err) {console.log(err)}
 
-    });
+            console.log("add to history : " + reference_name + " " + action + " " + type);
+
+        });
+
+    }
 
 }
 
@@ -210,6 +214,10 @@ var createReferenceIfNotExists = function(ref_value) {
  * LIST ALL
  */
 app.route('/:collection').get(function(req, res) {
+
+    if(req.params.collection && req.params.collection != "favicon.ico")
+        addToHistory(req.params.collection, "getAll", "http");
+
     var item, sort = {}, qw = {};
     for (item in req.query) {
         req.query[item] = (typeof +req.query[item] === 'number' && isFinite(req.query[item]))
@@ -227,6 +235,7 @@ app.route('/:collection').get(function(req, res) {
  * GET BY ID
  */
 app.route('/:collection/:id').get(function(req, res) {
+    addToHistory(req.params.collection, "getById", "http");
     db.collection(req.params.collection).findOne({_id:objectId(req.params.id)}, callbackOnCRUDOp(req, res));
 });
 
@@ -234,6 +243,7 @@ app.route('/:collection/:id').get(function(req, res) {
  * SAVE
  */
 app.route('/:collection').post(function(req, res) {
+    addToHistory(req.params.collection, "create", "http");
     if (req.body._id) { req.body._id = objectId(req.body._id);}
     db.collection(req.params.collection).save(req.body, {safe:true}, callbackOnCRUDOp(req, res));
 });
@@ -242,7 +252,7 @@ app.route('/:collection').post(function(req, res) {
  * UPDATE
  */
 app.route('/:collection/:id').put(function(req, res) {
-
+    addToHistory(req.params.collection, "update", "http");
     db.collection(req.params.collection).update({_id:objectId(req.params.id)}, req.body, {multi:false}, callbackOnCRUDOp(req, res));
 });
 
@@ -250,6 +260,7 @@ app.route('/:collection/:id').put(function(req, res) {
  * DELETE
  */
 app.route('/:collection/:id').delete(function(req, res) {
+    addToHistory(req.params.collection, "delete", "http");
     db.collection(req.params.collection).remove({_id:objectId(req.params.id)}, {safe:true}, callbackOnCRUDOp(req, res));
 });
 
