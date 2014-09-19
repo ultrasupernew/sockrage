@@ -39,7 +39,7 @@ server {
 }
 ```
 
-Actually NGINX is the most used reverse-proxy for Node instances in terms of performences, but it should work with any other websocket supported reverse-proxy.
+Actually NGINX is the most used reverse-proxy for Node instances in terms of performances, but it should work with any other websocket supported reverse-proxy.
 
 ##Client side
 
@@ -200,4 +200,17 @@ Assign your array to the Angular $scope object to inject it to the DOM.
 - Update data of synchronized array
 ```javascript
 	syncArray.$update(_id, newData);
+```
+
+##Optimize performances
+
+#####Disable logging system
+
+Disabling the logging engine logging in Sockrage would improve time responses, server usage and let more storage capabilities to mongoDB.
+But if you do that, the statistics tool of Sockrage located in /#/statistics in the dashboard won't work anymore.
+
+To disable it, just set to false the parameter "enable_logging".
+
+```
+	enable_logging: false
 ```
