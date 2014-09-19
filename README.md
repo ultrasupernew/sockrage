@@ -176,4 +176,28 @@ Assign your array to the Angular $scope object to inject it to the DOM.
 	syncArray.$update(_id, newData);
 ```
 
+## Use Sockrage behind a reverse-proxy (NGINX)
 
+The most common setup is using Sockrage behind a reverse-proxy, like you would do for any other Node instance. The NGINX vhost file is very simple, the only trick it has is that it authorize websocket over the proxy.
+
+```
+server {
+        listen   80;
+        server_name sockrage.test.fr; #The server name
+        location / {
+                proxy_pass         http://127.0.0.1:3000/; #The address where sockrage is running
+
+		# WebSocket support (nginx 1.4)
+        	proxy_http_version 1.1;
+        	proxy_set_header Upgrade $http_upgrade;
+        	proxy_set_header Connection "upgrade";
+        }
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html {
+                root   /var/www/nginx-default;
+        }
+
+}
+```
+
+Actually NGINX is the most used reverse-proxy for Node instances in terms of performences, but it should work with any other websocket supported reverse-proxy.
