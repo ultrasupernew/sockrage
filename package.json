@@ -1,21 +1,31 @@
 {
   "name": "sockrage",
-  "version": "0.0.1",
-  "description": "sockrage ========",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "SockRage is a real-time websocket server written in Javascript using NodeJS, based on socket.io.",
+  "main": "server.js",
   "dependencies": {
+    "body-parser": "~1.4.3",
     "express": "~4.5.0",
-    "body-parser": "^1.4.3"
+    "mongoose": "~3.8.12",
+    "socket.io": "~1.0.6",
+    "mongojs": "~0.13.0"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node server.js",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "root@alexandrenguyen.fr:/opt/git/usn-firebase.git"
+    "url": "git://github.com/ultrasupernew/sockrage.git"
   },
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "websocket"
+  ],
+  "author": "Alexandre Nguyen (alex.nr@hotmail.fr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ultrasupernew/sockrage/issues"
+  },
+  "homepage": "https://github.com/ultrasupernew/sockrage"
 }
