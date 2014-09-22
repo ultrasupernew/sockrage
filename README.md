@@ -8,7 +8,7 @@ Sockrage provides real-time CRUD web services accessible from the Sockrage Javas
 - Install NodeJS and NPM
 - Download / Clone Sockrage here
 - Edit config.js and set up your super admin password and running port
-- Run npm init in sudo mode
+- Run npm install in sudo mode
 - Run server with command "node server.js"
 - Open your web browser and go on http://"server address":"server port"
 - Create a project and assign references to this project. 
