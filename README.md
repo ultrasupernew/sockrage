@@ -50,6 +50,10 @@ Simply add socket.io library and SockRage library in your HTML :
 	<script type="text/javascript" src="/js/socket.io.js"></script>
 	<script type="text/javascript" src="/js/sockrage.js"></script>
 
+Or add the minified file that contains socket.io :
+
+	<script type="text/javascript" src="/js/sockrage.min.js"></script>
+
 Create an instance of SockRage, and provide a reference you created in the Backend :
 ```javascript
 var sockRage = new SockRage(<sockrage server address>, <your target reference>);
@@ -162,6 +166,9 @@ Assign your array to the Angular $scope object to inject it to the DOM.
 	<script type="text/javascript" src="/js/sockrage.js"></script>
 	<script type="text/javascript" src="/js/angularsockr.js"></script>
 
+Or add the minified file that contains socket.io and sockrage :
+
+	<script type="text/javascript" src="/js/angularsockr.min.js"></script>
 
 #### Register your module into your controller module or anywhere else. This example is for some standard controller module :
 
