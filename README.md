@@ -45,6 +45,14 @@ Actually NGINX is the most used reverse-proxy for Node instances in terms of per
 
 ### Javascript Library
 
+######Installation :
+
+Install via bower :
+
+	bower install sockrage
+
+...Or download the package there : https://github.com/alexzhxin/sockrage-js-client
+
 Simply add socket.io library and SockRage library in your HTML :
 
 	<script type="text/javascript" src="/js/socket.io.js"></script>
