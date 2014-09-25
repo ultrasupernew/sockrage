@@ -5,5 +5,7 @@
 exports.configObject = {
 	super_admin_password : "usn2014@",
 	server_port : 3000,
-    enable_logging : false
+    sockrage_collection : "sockrage",
+    enable_logging : false,
+    enable_REST : true
 };

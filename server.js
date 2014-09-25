@@ -17,8 +17,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var config = require('./config');
 var io = require('socket.io')(server);
-var mongoDBname = 'sockrage';
-var db = require('mongojs').connect(mongoDBname);
+var db = require('mongojs').connect(config.configObject.sockrage_collection);
 
 /**
  * App settings
@@ -31,7 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * MONGOOSE DRIVER CONNECTION
  */
-mongoose.connect('mongodb://localhost/' + mongoDBname, function(err) {
+mongoose.connect('mongodb://localhost/' + config.configObject.sockrage_collection, function(err) {
     if (err) { throw err; }
 });
 
@@ -215,53 +214,78 @@ var createReferenceIfNotExists = function(ref_value) {
  */
 app.route('/:collection').get(function(req, res) {
 
-    if(req.params.collection && req.params.collection != "favicon.ico")
-        addToHistory(req.params.collection, "getAll", "http");
+    if(config.configObject.enable_REST) {
 
-    var item, sort = {}, qw = {};
-    for (item in req.query) {
-        req.query[item] = (typeof +req.query[item] === 'number' && isFinite(req.query[item]))
-            ? parseFloat(req.query[item],10)
-            : req.query[item];
-        if (item != 'limit' && item != 'skip' && item != 'sort' && item != 'order' && req.query[item] != "undefined" && req.query[item]) {
-            qw[item] = req.query[item];
+        if(req.params.collection && req.params.collection != "favicon.ico")
+            addToHistory(req.params.collection, "getAll", "http");
+
+        var item, sort = {}, qw = {};
+        for (item in req.query) {
+            req.query[item] = (typeof +req.query[item] === 'number' && isFinite(req.query[item]))
+                ? parseFloat(req.query[item],10)
+                : req.query[item];
+            if (item != 'limit' && item != 'skip' && item != 'sort' && item != 'order' && req.query[item] != "undefined" && req.query[item]) {
+                qw[item] = req.query[item];
+            }
         }
+        if (req.query.sort) { sort[req.query.sort] = (req.query.order === 'desc' || req.query.order === -1) ? -1 : 1; }
+        db.collection(req.params.collection).find(qw).sort(sort).skip(req.query.skip).limit(req.query.limit).toArray(callbackOnCRUDOp(req, res));
+
     }
-    if (req.query.sort) { sort[req.query.sort] = (req.query.order === 'desc' || req.query.order === -1) ? -1 : 1; }
-    db.collection(req.params.collection).find(qw).sort(sort).skip(req.query.skip).limit(req.query.limit).toArray(callbackOnCRUDOp(req, res));
+
 });
 
 /**
  * GET BY ID
  */
 app.route('/:collection/:id').get(function(req, res) {
-    addToHistory(req.params.collection, "getById", "http");
-    db.collection(req.params.collection).findOne({_id:objectId(req.params.id)}, callbackOnCRUDOp(req, res));
+
+    if(config.configObject.enable_REST) {
+
+        addToHistory(req.params.collection, "getById", "http");
+        db.collection(req.params.collection).findOne({_id:objectId(req.params.id)}, callbackOnCRUDOp(req, res));
+
+    }
 });
 
 /**
  * SAVE
  */
 app.route('/:collection').post(function(req, res) {
-    addToHistory(req.params.collection, "create", "http");
-    if (req.body._id) { req.body._id = objectId(req.body._id);}
-    db.collection(req.params.collection).save(req.body, {safe:true}, callbackOnCRUDOp(req, res));
+
+    if(config.configObject.enable_REST) {
+
+        addToHistory(req.params.collection, "create", "http");
+        if (req.body._id) { req.body._id = objectId(req.body._id);}
+        db.collection(req.params.collection).save(req.body, {safe:true}, callbackOnCRUDOp(req, res));
+
+    }
 });
 
 /**
  * UPDATE
  */
 app.route('/:collection/:id').put(function(req, res) {
-    addToHistory(req.params.collection, "update", "http");
-    db.collection(req.params.collection).update({_id:objectId(req.params.id)}, req.body, {multi:false}, callbackOnCRUDOp(req, res));
+
+    if(config.configObject.enable_REST) {
+
+        addToHistory(req.params.collection, "update", "http");
+        db.collection(req.params.collection).update({_id:objectId(req.params.id)}, req.body, {multi:false}, callbackOnCRUDOp(req, res));
+
+    }
 });
 
 /**
  * DELETE
  */
 app.route('/:collection/:id').delete(function(req, res) {
-    addToHistory(req.params.collection, "delete", "http");
-    db.collection(req.params.collection).remove({_id:objectId(req.params.id)}, {safe:true}, callbackOnCRUDOp(req, res));
+
+    if(config.configObject.enable_REST) {
+
+        addToHistory(req.params.collection, "delete", "http");
+        db.collection(req.params.collection).remove({_id:objectId(req.params.id)}, {safe:true}, callbackOnCRUDOp(req, res));
+
+    }
 });
 
 /**
@@ -442,6 +466,7 @@ app.route('/internal/api/projects').get(function(req, res, next) {
     var query = projectsModel.find(null);
 
     query.exec(function (err, projects) {
+
         if (err) { throw err; }
 
         console.log("getting all projects");
@@ -691,6 +716,7 @@ app.route('/internal/api/historylogs/byReferenceName/:reference_name').get(funct
     query.where("reference_name").equals(req.params.reference_name);
 
     query.exec(function (err, historylogs) {
+
         if (err) { throw err; }
 
         console.log(historylogs);

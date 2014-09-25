@@ -1,3 +1,2 @@
-./idea
-server/.idea/
-.idea/workspace.xml
+.idea/
+.node_modules/
