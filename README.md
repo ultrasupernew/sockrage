@@ -3,6 +3,8 @@
 SockRage is a real-time websocket server written in Javascript using NodeJS, based on socket.io.
 Sockrage provides real-time CRUD web services accessible from the Sockrage Javascript client library.
 
+**Sockrage provides storage to its real-time services.**
+
 ##Setting up server
 
 - Install NodeJS and NPM
