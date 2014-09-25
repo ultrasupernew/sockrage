@@ -17,6 +17,15 @@ Sockrage provides real-time CRUD web services accessible from the Sockrage Javas
 
 #####A reference is like a table in the database where you can push and get data. After your created this reference, you'll have to assign it to the SockRage javascript object on the client side (see below)
 
+## Running Sockrage with Forever
+
+We recommend running Sockrage with Forever. Forever ensures Sockrage is always running anyway.
+
+```
+npm install -g forever
+forever start server.js
+```
+
 ## Sockrage behind a reverse-proxy (NGINX)
 
 The most common setup is using Sockrage behind a reverse-proxy, like you would do for any other Node instance. The NGINX vhost file is very simple, the only trick it has is that it authorize websocket over the proxy.
