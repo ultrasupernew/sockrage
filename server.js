@@ -23,7 +23,6 @@ var db = require('mongojs').connect(config.configObject.sockrage_collection);
  * App settings
  */
 app.use(bodyParser.json());
-app.set('view engine', 'html');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
