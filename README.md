@@ -7,19 +7,19 @@ Sockrage provides real-time CRUD web services accessible from the Sockrage Javas
 
 ##Setting up server
 
-- Install NodeJS and NPM
-- Download / Clone Sockrage here
-- Edit config.js and set up your super admin password and running port
-- Run npm install in sudo mode
-- Run server with command "node server.js"
-- Open your web browser and go on http://"server address":"server port"
+- Install `NodeJS` and `NPM`
+- Download / Clone Sockrage from this repository
+- Edit `config.js` and set up your super admin password and running port
+- Run `npm install` in `sudo` mode
+- Run server with command `node server.js`
+- Open your web browser and go on `http://"server address":"server port"`
 - Create a project and assign references to this project. 
 
 #####A reference is like a table in the database where you can push and get data. After your created this reference, you'll have to assign it to the SockRage javascript object on the client side (see below)
 
 ## Running Sockrage with Forever
 
-We recommend running Sockrage with Forever. Forever ensures Sockrage is always running anyway.
+We recommend running Sockrage with `forever`. `Forever` ensures Sockrage is always running anyway.
 
 ```
 npm install -g forever
@@ -62,14 +62,14 @@ Install via bower :
 
 	bower install sockrage
 
-...Or download the package there : https://github.com/alexzhxin/sockrage-js-client
+...Or download the package there : `https://github.com/alexzhxin/sockrage-js-client`
 
-Simply add socket.io library and SockRage library in your HTML :
+Simply add `socket.io` library and SockRage library in your HTML :
 
 	<script type="text/javascript" src="/js/socket.io.js"></script>
 	<script type="text/javascript" src="/js/sockrage.js"></script>
 
-Or add the minified file that contains socket.io :
+Or add the minified file that contains `socket.io` :
 
 	<script type="text/javascript" src="/js/sockrage.min.js"></script>
 
@@ -80,13 +80,13 @@ var sockRage = new SockRage(<sockrage server address>, <your target reference>);
 
 ######Now listen for data changes :
 
-on(operation, callback) function permits to listen on any operation. Operation can be :
+`on(operation, callback)` function permits to listen on any operation. Operation can be :
 
-- getAll
-- getById
-- delete
-- create
-- update
+- `getAll`
+- `getById`
+- `delete`
+- `create`
+- `update`
 
 ```javascript
 	sockRage.on(operation, function(data) {
@@ -175,9 +175,9 @@ SockRage can act as a simple packet emitter. You can broadcast objects to refere
 ### AngularJS Library
 
 AngularSockr is a library especially for AngularJS. It provides a synchronized array with your data on the server.
-Just create an AngularSockr synchronized array, and use our functions to add, update, create or delete data on your array.
+Just create an `AngularSockr` synchronized array, and use our functions to `get`, `update`, `create` or `delete` data on your array.
 
-Assign your array to the Angular $scope object to inject it to the DOM.
+Assign your array to the Angular `$scope` object to inject it to the DOM.
 
 #### Include theses libraries into your HTML page below AngularJS include.
 
@@ -213,7 +213,7 @@ Or add the minified file that contains socket.io and sockrage :
 
 ```
 
-#####Once you created your synchronized array just use theses method to update, create, delete data :
+#####Once you created your synchronized array just use theses method to `update`, `create`, `delete` data :
 
 - Add data to synchronized array
 ```javascript
@@ -233,9 +233,9 @@ Or add the minified file that contains socket.io and sockrage :
 #####Disable logging system
 
 Disabling the logging engine logging in Sockrage would improve time responses, server usage and let more storage capabilities to mongoDB.
-But if you do that, the statistics tool of Sockrage located in /#/statistics in the dashboard won't work anymore.
+But if you do that, the statistics tool of Sockrage located in `/#/statistics` in the dashboard won't work anymore.
 
-To disable it, just set to false the parameter "enable_logging".
+To disable it, just set to false the parameter `enable_logging`.
 
 ```
 	enable_logging: false
