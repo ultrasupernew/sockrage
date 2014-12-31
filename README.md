@@ -7,8 +7,8 @@ Sockrage provides real-time CRUD web services accessible from the Sockrage Javas
 
 ##Deploy with ![Alt text](https://d3oypxn00j2a10.cloudfront.net/0.13.0/img/nav/docker-logo-loggedout.png)
 
-You can avoid server configuration and simply deploy sockrage with Docker.
-We provide a docker container that will setup Sockrage without any needed nodeJS, NPM or mongoDB installation and configuration.
+You can avoid server configuration and simply deploy Sockrage with Docker.
+We provide a Docker container that will setup Sockrage without any needed nodeJS, NPM or mongoDB installation and configuration.
 
 Building image
 ```
@@ -19,8 +19,11 @@ docker build -t "yourname/sockrage" .
 
 Running Sockrage
 ```
-docker run -t yourname/sockrage
+docker run -t -p [VMport]:[SockragePort] yourname/sockrage
 ```
+
+Sockrage is now running on `http://localhost:[SockragePort]` (or `http://[VMAddress]:[SockragePort]`).
+Try going on `http://localhost:[SockragePort]` (or `http://[VMAddress]:[SockragePort]`) and you should see the Sockrage admin page !
 
 ##Setting up server (if you don't use Docker)
 
