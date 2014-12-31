@@ -5,7 +5,24 @@ Sockrage provides real-time CRUD web services accessible from the Sockrage Javas
 
 **Sockrage provides storage to its real-time services.**
 
-##Setting up server
+##Deploy with ![Alt text](https://d3oypxn00j2a10.cloudfront.net/0.13.0/img/nav/docker-logo-loggedout.png)
+
+You can avoid server configuration and simply deploy sockrage with Docker.
+We provide a docker container that will setup Sockrage without any needed nodeJS, NPM or mongoDB installation and configuration.
+
+Building image
+```
+git clone https://github.com/ultrasupernew/sockrage.git
+cd sockrage/
+docker build -t "yourname/sockrage" .
+```
+
+Running Sockrage
+```
+docker run -t yourname/sockrage
+```
+
+##Setting up server (if you don't use Docker)
 
 - Install `NodeJS` and `NPM`
 - Download / Clone Sockrage from this repository
